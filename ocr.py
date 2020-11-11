@@ -279,7 +279,7 @@ def prediction():
 def train_all(best_eval_loss_cer):
     train_loss = 0
     count_bad = 0
-    for epoch in range(epochs, 1000):
+    for epoch in range(epochs, 2000):
         print(f'Epoch: {epoch+1:02}')
         start_time = time.time()
         print("-----------train------------")
