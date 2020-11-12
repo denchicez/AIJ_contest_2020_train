@@ -18,7 +18,7 @@ class Hparams():
         self.test_dir = '/data/'
         
         #Символы, которые надо удалить
-        self.del_sym = ['і']
+        self.del_sym = ['i']
         
         # Скорость обучения
         self.lr = 1e-4
