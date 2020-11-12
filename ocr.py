@@ -278,6 +278,7 @@ def prediction():
 # Общая функция обучения и валидации
 def train_all(best_eval_loss_cer):
     train_loss = 0
+    count_bad = 0
     for epoch in range(epochs, 1000):
         print(f'Epoch: {epoch+1:02}')
         start_time = time.time()
@@ -293,6 +294,7 @@ def train_all(best_eval_loss_cer):
         eval_loss_cer_all.append(eval_loss_cer)
         eval_accuracy_all.append(eval_accuracy)
         if eval_loss_cer < best_eval_loss_cer:
+            count_bad = 0
             best_eval_loss_cer = eval_loss_cer
             torch.save({
                       'model': model.state_dict(),
@@ -305,6 +307,7 @@ def train_all(best_eval_loss_cer):
                   }, './log/resnet50_trans_%.3f.pt'% (best_eval_loss_cer))
             print('Save best model')
         else:
+            count_bad =+ 1
             torch.save({
                       'model': model.state_dict(),
                       'epoch': epoch,
@@ -330,6 +333,8 @@ def train_all(best_eval_loss_cer):
         plt.clf()
         plt.plot(eval_accuracy_all[-20:])
         plt.savefig('log/eval_accuracy.png')
+        if count_bad>19:
+            break
 
 
 # Загружаем гиперпараметры
