@@ -359,10 +359,13 @@ def train_all(best_eval_loss_cer):
 hp = Hparams()
 
 if __name__ == '__main__':
-    # Фиксируем сиды
-    random.seed(1488)
-    torch.manual_seed(1488)
-    torch.cuda.manual_seed(1488)
+    np.random.seed(439)
+    random.seed(439)
+    torch.backends.cudnn.benchmark = False
+    torch.backends.cudnn.deterministic = True
+    torch.manual_seed(439)
+    torch.cuda.manual_seed_all(439)
+    torch.set_printoptions(precision=10)
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     
     # Создать папку с логами
