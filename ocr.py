@@ -323,6 +323,15 @@ def train_all(best_eval_loss_cer):
                       'eval_loss_cer_all': eval_loss_cer_all,
                       'eval_accuracy_all': eval_accuracy_all,
                   }, './log/resnet50_trans_%.3f.pt'% (best_eval_loss_cer))
+            torch.save({
+                      'model': model.state_dict(),
+                      'epoch': epoch,
+                      'best_eval_loss_cer':best_eval_loss_cer,
+                      'valid_loss_all': valid_loss_all,
+                      'train_loss_all': train_loss_all,
+                      'eval_loss_cer_all': eval_loss_cer_all,
+                      'eval_accuracy_all': eval_accuracy_all,
+                  }, '/content/drive/My Drive/best_resnet_model/best_model.pt)
             print('Save best model')
         else:
             count_bad += 1
