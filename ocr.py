@@ -359,13 +359,10 @@ def train_all(best_eval_loss_cer):
 hp = Hparams()
 
 if __name__ == '__main__':
-    np.random.seed(1488)
+    # Фиксируем сиды
     random.seed(1488)
-    torch.backends.cudnn.benchmark = False
-    torch.backends.cudnn.deterministic = True
     torch.manual_seed(1488)
-    torch.cuda.manual_seed_all(1488)
-    torch.set_printoptions(precision=10)
+    torch.cuda.manual_seed(1488)
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     
     # Создать папку с логами
@@ -482,23 +479,9 @@ if __name__ == '__main__':
         train_all(best_eval_loss_cer)
     else:
         words = set()
-        for filename in os.listdir('words'):
-            with open('words/'+filename,"r",  encoding='utf8') as f:
-                text=f.read()
-                text=text.split()
-                for word in text:
-                    word=word.replace(']','')
-                    word=word.replace('[','')
-                    word=word.replace('1','')
-                    word=word.replace('2','')
-                    word=word.replace('3','')
-                    word=word.replace('4','')
-                    word=word.replace('5','')
-                    word=word.replace('6','')
-                    word=word.replace('7','')
-                    word=word.replace('8','')
-                    word=word.replace('9','')
-                    word=word.replace('+','')
-                    word=word.replace('-','')
-                    words.add(word)
+        with open('vocalbrory.txt',"r",  encoding='utf8') as f:
+            vocab=f.read()
+            vocab=vocab.split()
+            for slovo in vocab:
+                    words.add(slovo)
         prediction()
