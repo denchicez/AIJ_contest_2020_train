@@ -331,7 +331,7 @@ def train_all(best_eval_loss_cer):
                       'train_loss_all': train_loss_all,
                       'eval_loss_cer_all': eval_loss_cer_all,
                       'eval_accuracy_all': eval_accuracy_all,
-                  }, '/content/drive/My Drive/best_resnet_model/best_model.pt)
+                  }, '/content/drive/My Drive/best_resnet_model/best_model.pt')
             print('Save best model')
         else:
             count_bad += 1
