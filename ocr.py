@@ -360,7 +360,7 @@ def train_all(best_eval_loss_cer):
         plt.clf()
         plt.plot(eval_accuracy_all[-20:])
         plt.savefig('log/eval_accuracy.png')
-        if count_bad>19:
+        if count_bad>29:
             break
 
 
@@ -368,10 +368,13 @@ def train_all(best_eval_loss_cer):
 hp = Hparams()
 
 if __name__ == '__main__':
-    # Фиксируем сиды
+    np.random.seed(1488)
     random.seed(1488)
+    torch.backends.cudnn.benchmark = False
+    torch.backends.cudnn.deterministic = True
     torch.manual_seed(1488)
-    torch.cuda.manual_seed(1488)
+    torch.cuda.manual_seed_all(1488)
+    torch.set_printoptions(precision=10)
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     
     # Создать папку с логами
