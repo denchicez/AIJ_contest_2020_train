@@ -86,7 +86,7 @@ class TransformerModel(nn.Module):
     def __init__(self, name, outtoken, hidden = 128, enc_layers=1, dec_layers=1, nhead = 1, dropout=0.1,pretrained=False):
         super(TransformerModel, self).__init__()
         self.backbone = models.__getattribute__(name)(pretrained=pretrained)
-        #self.backbone.avgpool = nn.MaxPool2d((4, 1))
+        self.backbone.avgpool = nn.AvgPool2d((4, 1))
         self.backbone.fc = nn.Conv2d(2048, hidden//4, 1)
         
         self.pos_encoder = PositionalEncoding(hidden, dropout)
@@ -119,7 +119,7 @@ class TransformerModel(nn.Module):
         x = self.backbone.layer2(x)
         x = self.backbone.layer3(x)
         x = self.backbone.layer4(x)
-        #x = self.backbone.avgpool(x)
+        x = self.backbone.avgpool(x)
         
         x = self.backbone.fc(x)
         x = x.permute(0, 3, 1, 2).flatten(2).permute(1, 0, 2)
@@ -190,7 +190,7 @@ def validate(model, dataloader, show=50):
             x = model.backbone.layer2(x)
             x = model.backbone.layer3(x)
             x = model.backbone.layer4(x)
-            #x = model.backbone.avgpool(x)
+            x = model.backbone.avgpool(x)
         
             x = model.backbone.fc(x)
 
@@ -255,7 +255,7 @@ def prediction():
             x = model.backbone.layer2(x)
             x = model.backbone.layer3(x)
             x = model.backbone.layer4(x)
-            #x = model.backbone.avgpool(x)
+            x = model.backbone.avgpool(x)
         
             x = model.backbone.fc(x)
             x = x.permute(0,3, 1, 2).flatten(2).permute(1, 0, 2)
