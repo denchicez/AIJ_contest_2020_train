@@ -83,7 +83,7 @@ class PositionalEncoding(nn.Module):
 
 # Transformer Model
 class TransformerModel(nn.Module):
-    def __init__(self, name, outtoken, hidden = 128, enc_layers=1, dec_layers=1, nhead = 1, dropout=0.1,pretrained=False):
+    def __init__(self, name, outtoken, hidden = 512, enc_layers=1, dec_layers=1, nhead = 1, dropout=0.1,pretrained=False):
         super(TransformerModel, self).__init__()
         self.backbone = models.__getattribute__(name)(pretrained=pretrained)
         self.backbone.avgpool = nn.AvgPool2d((4, 1))
